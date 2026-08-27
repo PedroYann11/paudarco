@@ -4,12 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Pau d'Arco Pizzaria</title>
-<meta name="description" content="Pau d'Arco Pizzaria &amp; Restaurante — 20 sabores no forno a lenha, monte a sua meio a meio e peça pelo WhatsApp.">
-<meta name="theme-color" content="#14100c">
-<meta property="og:title" content="Pau d'Arco Pizzaria">
-<meta property="og:description" content="20 sabores no forno a lenha. Monte a sua meio a meio.">
-<meta property="og:type" content="website">
-<style>*{margin:0}html{-webkit-text-size-adjust:100%}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,400..900&display=swap">
@@ -31,7 +25,13 @@
   --raio:      clamp(330px, 104vw, 460px);
   --larg:      clamp(100px, 27vw, 140px);
   --alt-fatia: calc(var(--larg) * 1.38);
-  --centro:    clamp(560px, 76svh, 680px);
+  /* O bloco do nome reserva DUAS linhas sempre (min-height em #sabor), então a
+     folga até a ponta do arco é a mesma para "Funghi" e para "Frango com
+     Catupiry" — nome curto só parece mais folgado porque fica centralizado na
+     caixa. --respiro empurra o eixo do leque (e, por consequência, tudo que
+     pendura em --tip) para baixo, dando o ar que faltava aos nomes longos. */
+  --respiro:   clamp(30px, 5svh, 44px);
+  --centro:    calc(clamp(560px, 76svh, 680px) + var(--respiro));
   --tip:       calc(var(--centro) - var(--raio) + var(--alt-fatia));
 
   --display: "Fraunces", "Iowan Old Style", Georgia, serif;
@@ -98,7 +98,7 @@ h1,h2,h3{ margin:0; font-family:var(--display); font-weight:600; text-wrap:balan
   background:radial-gradient(120% 78% at 50% 96%, var(--fumaca) 0%, var(--brasa-alta) 42%, var(--brasa) 78%);
 }
 .forno{
-  position:absolute; left:50%; top:clamp(60px, 13vh, 110px);
+  position:absolute; left:50%; top:calc(clamp(60px, 13vh, 110px) + var(--respiro));
   width:min(80vw, 440px); aspect-ratio:1; translate:-50% 0;
   background:radial-gradient(circle, rgba(224,123,46,.24) 0%, rgba(224,123,46,.06) 44%, transparent 68%);
   filter:blur(6px); z-index:0; pointer-events:none;
@@ -106,6 +106,11 @@ h1,h2,h3{ margin:0; font-family:var(--display); font-weight:600; text-wrap:balan
 
 .dizeres{ position:relative; z-index:6; padding:clamp(2.6rem, 6vh, 3.6rem) 1.25rem 0; text-align:center; }
 .dizeres .rotulo{ display:block; margin-bottom:.5rem; }
+/* Em tela estreita o rótulo encosta na placa da logo, que é fixa no canto.
+   Ele passa a se centralizar no espaço que sobra à direita dela. */
+@media (max-width: 560px){
+  .dizeres .rotulo{ padding-left:calc(clamp(74px, 19vw, 96px) + 1.2rem); }
+}
 #sabor{
   display:flex; align-items:center; justify-content:center;
   min-height:2.05em;                     /* duas linhas sempre reservadas */
