@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+/*
+ * Tokens da Cap Store Cariri.
+ * As cores foram extraídas da logo (selo off-white, anel e letras douradas,
+ * monograma prateado, fundo grafite). A paleta padrão do Tailwind é desligada
+ * de propósito: qualquer cor usada no site precisa vir daqui.
+ */
+@theme {
+  --color-*: initial;
+
+  --color-papel: #f6f5f2; /* fundo principal */
+  --color-linho: #ecebe7; /* superfícies e tiles de produto */
+  --color-filete: #dedcd6; /* divisórias de 1px */
+  --color-prata: #c9c8c3; /* segundo metal, do monograma */
+  --color-grafite: #26272b; /* texto e botão principal */
+  --color-grafite-suave: #6a6b70; /* texto secundário */
+  --color-carvao: #1b1c1f; /* seção final e rodapé */
+  --color-ouro: #a3844e; /* filetes e detalhes — não usar em texto pequeno */
+  --color-ouro-claro: #d9bc7a; /* dourado sobre fundo escuro */
+  --color-ouro-texto: #7e6233; /* dourado como texto sobre o papel (AA) */
+
+  --font-sans: var(--font-barlow), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-barlow-semi), var(--font-barlow), ui-sans-serif,
+    system-ui, sans-serif;
+
+  --tracking-rotulo: 0.22em;
+  --tracking-botao: 0.14em;
+
+  --ease-marca: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-papel);
+    color: var(--color-grafite);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background-color: var(--color-ouro-claro);
+    color: var(--color-carvao);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ouro);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Envelope horizontal: 20px de respiro no celular, largura máxima no desktop. */
+@utility envelope {
+  width: min(100% - 2.5rem, 72rem);
+  margin-inline: auto;
+}
