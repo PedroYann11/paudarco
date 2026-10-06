@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { IlustracaoBone } from "@/components/bone/IlustracaoBone";
 import type { Produto, Variante } from "@/content/tipos";
-import { modeloIlustracao } from "@/lib/catalogo";
+import { modeloIlustracao } from "@/lib/ilustracao";
 
 /*
  * Imagem do produto: a primeira foto da variante quando existir; enquanto não

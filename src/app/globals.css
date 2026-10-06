@@ -11,6 +11,8 @@
 
   --color-papel: #f6f5f2; /* fundo principal */
   --color-linho: #ecebe7; /* superfícies e tiles de produto */
+  --color-areia: #e6decf; /* fundo de estilo: tom quente do papel */
+  --color-nevoa: #dcdcd8; /* fundo de estilo: o cinza do disco do selo */
   --color-filete: #dedcd6; /* divisórias de 1px */
   --color-prata: #c9c8c3; /* segundo metal, do monograma */
   --color-grafite: #26272b; /* texto e botão principal */
@@ -267,5 +269,46 @@ html:has(.painel[open]) {
     opacity: 0;
     visibility: hidden;
     transform: translateY(12px);
+  }
+}
+
+/* ---------- Catálogo ---------- */
+
+/* troca de estilo: a vitrine nova sobe de leve, indicando que o conteúdo mudou */
+.entrada {
+  animation: entrada 0.55s var(--ease-marca) both;
+}
+
+@keyframes entrada {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* no celular, o card de estilo que está no centro do trilho ganha foco;
+   os vizinhos recuam um pouco (animação guiada pela rolagem, só CSS) */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) and (max-width: 767px) {
+    .estilo-card {
+      animation: estilo-foco linear both;
+      animation-timeline: view(inline);
+    }
+  }
+}
+
+@keyframes estilo-foco {
+  0% {
+    scale: 0.92;
+    opacity: 0.55;
+  }
+  40%,
+  60% {
+    scale: 1;
+    opacity: 1;
+  }
+  100% {
+    scale: 0.92;
+    opacity: 0.55;
   }
 }

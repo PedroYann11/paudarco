@@ -15,8 +15,11 @@ apresenta como site real: nenhum texto de "demo", "protótipo" ou "em breve".
 ### Entra
 
 1. **Hero com scroll** (selo → boné girando → assinatura → catálogo).
-2. **Catálogo** com 12 a 16 bonés, chips de categoria, painel de filtros
-   (marca e cor), preço e contador de resultados.
+2. **Catálogo como cardápio de estilos** (inspirado na Goorin Bros, em que cada
+   boné tem personalidade): carrossel de capas por estilo — aba curva "O
+   clássico", aba reta "O arretado", trucker "O estradeiro", dad hat "O
+   sossegado" —, depois a vitrine do estilo com um destaque grande e os demais
+   modelos; marca e cor num filtro discreto dentro do estilo.
 3. **Detalhe rápido** em painel inferior ao tocar no card: foto, marca, nome,
    cor, preço e botão "Tenho interesse" que abre o WhatsApp com a mensagem pronta.
    Substitui a página de produto nesta fase.

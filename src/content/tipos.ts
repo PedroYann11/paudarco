@@ -34,11 +34,16 @@ export interface Marca {
   ordem: number;
 }
 
+/* Fundo de cada estilo no catálogo; todos vêm da paleta da marca. */
+export type TomCategoria = "linho" | "areia" | "nevoa" | "carvao";
+
 export interface Categoria {
   id: string;
   slug: string;
   nome: string;
+  apelido?: string; // a personalidade do estilo, ex.: "O clássico"
   descricao?: string;
+  tom?: TomCategoria;
   ordem: number;
 }
 

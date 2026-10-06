@@ -1,7 +1,6 @@
 import { categorias } from "@/content/dados/categorias";
 import { marcas } from "@/content/dados/marcas";
 import { produtos } from "@/content/dados/produtos";
-import type { ModeloBone } from "@/components/bone/IlustracaoBone";
 import type { Categoria, Marca, Produto } from "@/content/tipos";
 
 /*
@@ -26,11 +25,4 @@ export async function listarMarcas(): Promise<Marca[]> {
 
 export async function listarCategorias(): Promise<Categoria[]> {
   return [...categorias].sort(porOrdem);
-}
-
-/* Forma usada pela ilustração enquanto o produto não tem foto. */
-export function modeloIlustracao(produto: Produto): ModeloBone {
-  if (produto.categoriaId === "trucker") return "trucker";
-  if (produto.categoriaId === "dad-hat") return "dad";
-  return produto.aba === "reta" ? "reta" : "curva";
 }

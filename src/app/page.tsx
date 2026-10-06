@@ -1,6 +1,7 @@
 import { Catalogo } from "@/components/catalogo/Catalogo";
 import { Hero } from "@/components/hero/Hero";
-import { listarCategorias, listarMarcas, listarProdutos, modeloIlustracao } from "@/lib/catalogo";
+import { listarCategorias, listarMarcas, listarProdutos } from "@/lib/catalogo";
+import { modeloIlustracao } from "@/lib/ilustracao";
 import { obterConfiguracao } from "@/lib/site";
 
 export default async function Inicio() {
