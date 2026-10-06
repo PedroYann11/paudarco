@@ -1,38 +1,43 @@
-import { Selo } from "@/components/marca/Selo";
-import { Estrela } from "@/components/ui/Estrela";
-import { Rotulo } from "@/components/ui/Rotulo";
+import { Catalogo } from "@/components/catalogo/Catalogo";
+import { Hero } from "@/components/hero/Hero";
+import { listarCategorias, listarMarcas, listarProdutos, modeloIlustracao } from "@/lib/catalogo";
 import { obterConfiguracao } from "@/lib/site";
 
-/*
- * Abertura estática: selo, assinatura e região. É a composição de partida do
- * hero animado e continuará sendo a versão exibida com movimento reduzido.
- */
 export default async function Inicio() {
-  const site = await obterConfiguracao();
-  const [estilo, identidade] = site.assinatura.split(/(?<=\.)\s+/);
+  const [site, produtos, marcas, categorias] = await Promise.all([
+    obterConfiguracao(),
+    listarProdutos(),
+    listarMarcas(),
+    listarCategorias(),
+  ]);
+
+  // O boné da abertura é o primeiro produto em destaque, na primeira cor.
+  const destaque = produtos.find((p) => p.destaque) ?? produtos[0];
+  const varianteDestaque = destaque?.variantes[0];
 
   return (
-    <section
-      aria-labelledby="assinatura"
-      className="envelope flex min-h-[calc(100svh-4rem)] flex-col items-center justify-center pb-16 pt-6 text-center"
-    >
-      <Rotulo>{site.regiao}</Rotulo>
-
-      <Selo
-        preload
-        sizes="(min-width: 768px) 300px, 62vw"
-        className="mt-8 h-auto w-[62vw] max-w-[18.75rem]"
+    <>
+      {destaque && varianteDestaque ? (
+        <Hero
+          assinatura={site.assinatura}
+          regiao={site.regiao}
+          destaque={{
+            marca: marcas.find((m) => m.id === destaque.marcaId)?.nome ?? "",
+            nome: destaque.nome,
+            modelo: modeloIlustracao(destaque),
+            abaReta: destaque.aba === "reta",
+            cor: varianteDestaque.hex,
+            corSecundaria: varianteDestaque.hexSecundario,
+          }}
+        />
+      ) : null}
+      <Catalogo
+        produtos={produtos}
+        marcas={marcas}
+        categorias={categorias}
+        exibirPrecos={site.exibirPrecos}
+        whatsapp={site.whatsapp}
       />
-
-      <h1
-        id="assinatura"
-        className="mt-10 font-display text-[clamp(2.75rem,12vw,5.75rem)] font-bold uppercase italic leading-[0.92]"
-      >
-        <span className="block">{estilo}</span>
-        <span className="block">{identidade}</span>
-      </h1>
-
-      <Estrela className="mt-9 text-ouro" />
-    </section>
+    </>
   );
 }

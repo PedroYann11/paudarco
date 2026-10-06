@@ -56,6 +56,7 @@ export interface Variante {
   cor: string; // nome exibido, ex.: "Preto fosco"
   familia: FamiliaCor; // usado no filtro
   hex: string; // usado na bolinha de cor
+  hexSecundario?: string; // segunda cor (tela do trucker, tira traseira)
   imagens: ImagemProduto[]; // vazio = o site mostra o tile provisório
   disponivel: boolean;
   codigo?: string; // referência interna da loja, vai na mensagem do WhatsApp

@@ -83,3 +83,189 @@
   width: min(100% - 2.5rem, 72rem);
   margin-inline: auto;
 }
+
+/* ---------- Painel (dialog) ---------- */
+.painel {
+  margin: auto auto 0;
+  width: 100%;
+  max-width: 100%;
+  max-height: 88svh;
+  padding: 0;
+  border: 0;
+  border-radius: 14px 14px 0 0;
+  background: var(--color-papel);
+  color: var(--color-grafite);
+  translate: 0 0;
+  opacity: 1;
+  transition:
+    translate 0.42s var(--ease-marca),
+    opacity 0.3s ease,
+    display 0.42s allow-discrete,
+    overlay 0.42s allow-discrete;
+}
+
+.painel:not([open]) {
+  translate: 0 100%;
+}
+
+@starting-style {
+  .painel[open] {
+    translate: 0 100%;
+  }
+}
+
+.painel::backdrop {
+  background: rgb(27 28 31 / 0);
+  transition:
+    background 0.42s ease,
+    display 0.42s allow-discrete,
+    overlay 0.42s allow-discrete;
+}
+
+.painel[open]::backdrop {
+  background: rgb(27 28 31 / 0.42);
+}
+
+@starting-style {
+  .painel[open]::backdrop {
+    background: rgb(27 28 31 / 0);
+  }
+}
+
+@media (min-width: 768px) {
+  .painel-lateral {
+    margin: 0 0 0 auto;
+    width: 26rem;
+    height: 100svh;
+    max-height: 100svh;
+    border-radius: 0;
+  }
+
+  .painel-lateral:not([open]) {
+    translate: 100% 0;
+  }
+
+  @starting-style {
+    .painel-lateral[open] {
+      translate: 100% 0;
+    }
+  }
+
+  .painel-central {
+    margin: auto;
+    width: min(100% - 4rem, 56rem);
+    max-height: min(88svh, 40rem);
+    border-radius: 4px;
+  }
+
+  .painel-central:not([open]) {
+    translate: 0 1.5rem;
+    opacity: 0;
+  }
+
+  @starting-style {
+    .painel-central[open] {
+      translate: 0 1.5rem;
+      opacity: 0;
+    }
+  }
+}
+
+html:has(.painel[open]) {
+  overflow: hidden;
+}
+
+/* ---------- Texto que rola no hover (links e botões) ---------- */
+.texto-rolante {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.texto-rolante > span,
+.texto-rolante::after {
+  display: block;
+  transition: translate 0.45s var(--ease-marca);
+}
+
+.texto-rolante::after {
+  content: attr(data-texto) / "";
+  position: absolute;
+  inset: 100% 0 auto;
+}
+
+@media (hover: hover) {
+  .group:hover .texto-rolante > span,
+  .group:hover .texto-rolante::after {
+    translate: 0 -100%;
+  }
+}
+
+.group:focus-visible .texto-rolante > span,
+.group:focus-visible .texto-rolante::after {
+  translate: 0 -100%;
+}
+
+/* ---------- Hero ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* o traço começa apagado e é desenhado pela timeline */
+  .hero-traco [data-traco] {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+
+  .dica-linha {
+    transform-origin: top;
+    animation: dica 2.2s var(--ease-marca) infinite;
+  }
+
+  /* durante a abertura o selo do cabeçalho espera o selo do hero chegar */
+  body:has(#hero[data-fase="abertura"]) .cabecalho-marca {
+    opacity: 0;
+  }
+
+  body:has(#hero:not([data-fase="fim"])) .cabecalho {
+    background-color: transparent;
+    border-color: transparent;
+  }
+}
+
+@keyframes dica {
+  0% {
+    transform: scaleY(0);
+    opacity: 1;
+  }
+  55% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 0;
+  }
+}
+
+/* Estados iniciais do hero em CSS (sem piscar antes do JS); usam transform,
+   a mesma propriedade que o GSAP anima. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-vitrine {
+    clip-path: inset(50% 50% 50% 50%);
+  }
+
+  .hero-cheio,
+  .hero-traco {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .hero-linha {
+    transform: translateY(110%);
+  }
+
+  .hero-legenda {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+  }
+}
